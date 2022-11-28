@@ -1,12 +1,6 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System.Net.Http;
 
 namespace nbaunderdogleagueFunctions
@@ -19,9 +13,7 @@ namespace nbaunderdogleagueFunctions
         }
 
         [FunctionName("UpdateTeamStatsFromRapidAPI")]
-        public static async Task<IActionResult> UpdateTeamStatsFromRapidAPI(
-            [TimerTrigger("0 */30 * * * *")] HttpRequest req,
-            ILogger log)
+        public static async Task UpdateTeamStatsFromRapidAPI([TimerTrigger("0 */30 * * * *", RunOnStartup = false)] TimerInfo timer)
         {
             string msg;
             try {
@@ -39,16 +31,9 @@ namespace nbaunderdogleagueFunctions
                 response.EnsureSuccessStatusCode();
 
                 string content = await response.Content.ReadAsStringAsync();
-
-                log.LogInformation(content);
-
-                return new OkObjectResult(content);
             } catch (Exception ex) {
-                log.LogError(ex, ex.Message);
                 msg = ex.Message;
             }
-
-            return new OkObjectResult(msg);
         }
     }
 }
