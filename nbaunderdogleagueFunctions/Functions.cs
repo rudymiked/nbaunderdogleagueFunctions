@@ -18,23 +18,32 @@ namespace nbaunderdogleagueFunctions
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string api = "api/UpdateTeamStatsFromRapidAPI/";
+            string msg;
+            try {
 
-            HttpClient httpClient = new();
-            HttpRequestMessage request = new() {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(AppConstants.NBAUnderdogLeagueAPIURL + api),
-            };
+                string api = "api/Team/UpdateTeamStatsFromRapidAPI/";
 
-            HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+                HttpClient httpClient = new();
+                HttpRequestMessage request = new() {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(AppConstants.NBAUnderdogLeagueAPIURL + api),
+                };
 
-            response.EnsureSuccessStatusCode();
+                HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
 
-            string content = await response.Content.ReadAsStringAsync();
+                response.EnsureSuccessStatusCode();
 
-            log.LogInformation(content);
+                string content = await response.Content.ReadAsStringAsync();
 
-            return new OkObjectResult(content);
+                log.LogInformation(content);
+
+                return new OkObjectResult(content);
+            } catch (Exception ex) {
+                log.LogError(ex, ex.Message);
+                msg = ex.Message;
+            }
+
+            return new OkObjectResult(msg);
         }
     }
 }
