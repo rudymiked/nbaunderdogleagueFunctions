@@ -11,11 +11,16 @@ using System.Net.Http;
 
 namespace nbaunderdogleagueFunctions
 {
-    public static class Functions
+    public class Functions
     {
+        public Functions()
+        {
+
+        }
+
         [FunctionName("UpdateTeamStatsFromRapidAPI")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public static async Task<IActionResult> UpdateTeamStatsFromRapidAPI(
+            [TimerTrigger("0 */30 * * * *")] HttpRequest req,
             ILogger log)
         {
             string msg;
