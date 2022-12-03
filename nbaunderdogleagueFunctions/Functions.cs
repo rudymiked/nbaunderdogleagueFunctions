@@ -13,7 +13,7 @@ namespace nbaunderdogleagueFunctions
         }
 
         [FunctionName("UpdateTeamStatsFromRapidAPI")]
-        public static async Task UpdateTeamStatsFromRapidAPI([TimerTrigger("0 */30 * * * *", RunOnStartup = false)] TimerInfo timer)
+        public static async Task UpdateTeamStatsFromRapidAPI([TimerTrigger("0 0 * * * *", RunOnStartup = false)] TimerInfo timer)
         {
             string msg;
             try {
