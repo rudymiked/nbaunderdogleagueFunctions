@@ -18,7 +18,7 @@ namespace nbaunderdogleagueFunctions
             string msg;
             try {
 
-                string api = "api/Team/UpdateTeamStatsFromRapidAPI/";
+                string api = "api/NBA/UpdateTeamStatsFromRapidAPI/";
 
                 HttpClient httpClient = new();
                 HttpRequestMessage request = new() {
