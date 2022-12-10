@@ -1,16 +1,13 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace nbaunderdogleagueFunctions
 {
     public class Functions
     {
-        public Functions()
-        {
-
-        }
+        public Functions() { }
 
         [FunctionName("UpdateTeamStatsFromRapidAPI")]
         public static async Task UpdateTeamStatsFromRapidAPI([TimerTrigger("0 0 * * * *", RunOnStartup = false)] TimerInfo timer)
