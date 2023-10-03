@@ -58,13 +58,13 @@ namespace nbaunderdogleagueFunctions
         }
 
         [FunctionName("Warmer")]
-        public static void WarmUp([TimerTrigger("0 */15 * * * *")] TimerInfo timer)
+        public static void WarmUp([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             // Do nothing
         }
 
         [FunctionName("WarmerForApp")]
-        public static async Task WarmerForApp([TimerTrigger("0 */20 * * * *")] TimerInfo timer)
+        public static async Task WarmerForApp([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             string msg;
             try {
@@ -88,7 +88,7 @@ namespace nbaunderdogleagueFunctions
         }        
         
         [FunctionName("WarmerForUI")]
-        public static async Task WarmerForUI([TimerTrigger("0 */20 * * * *")] TimerInfo timer)
+        public static async Task WarmerForUI([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             string msg;
             try {
