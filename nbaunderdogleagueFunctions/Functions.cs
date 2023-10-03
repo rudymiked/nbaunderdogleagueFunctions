@@ -62,5 +62,51 @@ namespace nbaunderdogleagueFunctions
         {
             // Do nothing
         }
+
+        [FunctionName("WarmerForApp")]
+        public static async Task WarmerForApp([TimerTrigger("0 */20 * * * *")] TimerInfo timer)
+        {
+            string msg;
+            try {
+
+                string api = "api/App/Start/";
+
+                HttpClient httpClient = new();
+                HttpRequestMessage request = new() {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(AppConstants.NBAUnderdogLeagueAPIURL + api),
+                };
+
+                HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                string content = await response.Content.ReadAsStringAsync();
+            } catch (Exception ex) {
+                msg = ex.Message;
+            }
+        }        
+        
+        [FunctionName("WarmerForUI")]
+        public static async Task WarmerForUI([TimerTrigger("0 */20 * * * *")] TimerInfo timer)
+        {
+            string msg;
+            try {
+
+                HttpClient httpClient = new();
+                HttpRequestMessage request = new() {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(AppConstants.NBAUnderdogLeagueUIURL),
+                };
+
+                HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                string content = await response.Content.ReadAsStringAsync();
+            } catch (Exception ex) {
+                msg = ex.Message;
+            }
+        }
     }
 }
