@@ -56,5 +56,11 @@ namespace nbaunderdogleagueFunctions
                 msg = ex.Message;
             }
         }
+
+        [FunctionName("Warmer")]
+        public static void WarmUp([TimerTrigger("0 */15 * * * *")] TimerInfo timer)
+        {
+            // Do nothing
+        }
     }
 }
