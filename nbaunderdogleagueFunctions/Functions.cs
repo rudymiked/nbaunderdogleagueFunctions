@@ -57,6 +57,30 @@ namespace nbaunderdogleagueFunctions
             }
         }
 
+        [FunctionName("UpdatePlayerStatsFromRapidAPI")]
+        public static async Task UpdatePlayerStatsFromRapidAPI([TimerTrigger("0 0 0 * * 1,3,5,7", RunOnStartup = false)] TimerInfo timer)
+        {
+            string msg;
+            try {
+
+                string api = "api/NBA/UpdatePlayerStatsFromRapidAPI/";
+
+                HttpClient httpClient = new();
+                HttpRequestMessage request = new() {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(AppConstants.NBAUnderdogLeagueAPIURL + api),
+                };
+
+                HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                string content = await response.Content.ReadAsStringAsync();
+            } catch (Exception ex) {
+                msg = ex.Message;
+            }
+        }
+
         [FunctionName("Warmer")]
         public static void WarmUp([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
