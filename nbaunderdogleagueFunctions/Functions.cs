@@ -1,7 +1,7 @@
-using Microsoft.Azure.WebJobs;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Azure.Functions.Worker;
 
 namespace nbaunderdogleagueFunctions
 {
@@ -9,7 +9,7 @@ namespace nbaunderdogleagueFunctions
     {
         public Functions() { }
 
-        [FunctionName("UpdateTeamStatsFromRapidAPI")]
+        [Function("UpdateTeamStatsFromRapidAPI")]
         public static async Task UpdateTeamStatsFromRapidAPI([TimerTrigger("0 0 * * * *", RunOnStartup = false)] TimerInfo timer)
         {
             string msg;
@@ -33,7 +33,7 @@ namespace nbaunderdogleagueFunctions
             }
         }
 
-        [FunctionName("UpdateGamesFromRapidAPI")]
+        [Function("UpdateGamesFromRapidAPI")]
         public static async Task UpdateGamesFromRapidAPI([TimerTrigger("0 0 0 * * *", RunOnStartup = false)] TimerInfo timer)
         {
             string msg;
@@ -57,7 +57,7 @@ namespace nbaunderdogleagueFunctions
             }
         }
 
-        [FunctionName("UpdatePlayerStatsFromRapidAPI")]
+        [Function("UpdatePlayerStatsFromRapidAPI")]
         public static async Task UpdatePlayerStatsFromRapidAPI([TimerTrigger("0 0 0 * * 1,3,5,7", RunOnStartup = false)] TimerInfo timer)
         {
             string msg;
@@ -81,13 +81,13 @@ namespace nbaunderdogleagueFunctions
             }
         }
 
-        [FunctionName("Warmer")]
+        [Function("Warmer")]
         public static void WarmUp([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             // Do nothing
         }
 
-        [FunctionName("WarmerForApp")]
+        [Function("WarmerForApp")]
         public static async Task WarmerForApp([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             string msg;
@@ -111,7 +111,7 @@ namespace nbaunderdogleagueFunctions
             }
         }        
         
-        [FunctionName("WarmerForUI")]
+        [Function("WarmerForUI")]
         public static async Task WarmerForUI([TimerTrigger("0 6-23/1 * * *")] TimerInfo timer)
         {
             string msg;
